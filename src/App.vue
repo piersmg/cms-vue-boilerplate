@@ -5,8 +5,8 @@
       <router-link :to="{ name: 'integration', params: { id: 'foo' } }"
         >Foo</router-link
       >
-      <router-link :to="{ name: 'integration', params: { id: '123' } }"
-        >123</router-link
+      <router-link :to="{ name: 'category', params: { id: 'accounting' } }"
+        >Accounting</router-link
       >
       <router-link :to="{ name: 'home' }">Home</router-link>
     </p>
@@ -15,8 +15,6 @@
 </template>
 
 <script>
-import Integration from '@/components/Integration.vue';
-
 export default {
   name: 'App',
   props: ['moduleData'],
@@ -33,9 +31,7 @@ export default {
       this.moduleData,
     );
   },
-  components: {
-    Integration,
-  },
+  components: {},
 };
 </script>
 

@@ -9,18 +9,18 @@
 //   </div>
 // </template> -->
 <template>
-  <div class="user">
-    <h1>The Integration Component</h1>
-    <p>{{ $route.params.id | capitalize }}</p>
-    <p>{{ integration }}</p>
-    <hr />
-    <div class="row">
-      <!--       <div>
-        <app-user-edit></app-user-edit>
-      </div>
-      <div>
-        <app-user-detail></app-user-detail>
-      </div> -->
+  <div class="integration">
+    <div v-if="loading" class="loading">
+      Loading...
+    </div>
+
+    <div v-if="error" class="error">
+      {{ error }}
+    </div>
+
+    <div v-if="integration" class="content">
+      <h2 class="h3">{{ integration.Name }}</h2>
+      <p>{{ integration.Description }}</p>
     </div>
   </div>
 </template>
@@ -33,18 +33,48 @@ const capitalize = value => {
 
 export default {
   name: 'Integration',
-  data: function() {
+  data() {
     return {
-      //  reasonsCount: this.initialClickCount,
+      loading: false,
+      post: null,
+      error: null,
     };
   },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData();
+  },
+  watch: {
+    // call again the method if the route changes
+    $route: 'fetchData',
+  },
+  methods: {
+    fetchData() {
+      this.error = this.post = null;
+      this.loading = true;
+      const fetchedId = this.$route.params.uuid;
+      // replace `getPost` with your data fetching util / API wrapper
+      getIntegration(fetchedId, (err, integration) => {
+        // make sure this request is the last one we did, discard otherwise
+        if (this.$route.params.uuid !== fetchedId) return;
+        this.loading = false;
+        if (err) {
+          this.error = err.toString();
+        } else {
+          this.integration = integration;
+        }
+      });
+    },
+  },
+  // data: function() {
+  //   return {
+  //     //  reasonsCount: this.initialClickCount,
+  //   };
+  // },
   // computed: {
   //   integration() {
-  //     return `There are ${
-  //       this.reasonsCount > 0
-  //         ? pluralize(this.reasonsCount, 'reason', 's')
-  //         : 'so many reasons'
-  //     } to use HubSpot CMS + Vue!`;
+  //     return `${route.params.id | capitalize }`;
   //   },
   // },
   // methods: {

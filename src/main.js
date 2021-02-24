@@ -3,12 +3,11 @@ import 'regenerator-runtime/runtime';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from '@/App.vue';
+import router from '@/router';
+import store from '@/store';
 import '@/index.scss';
-import Integration from '@/components/Integration.vue';
 
 // import ErrorBoundary from './components/ErrorBoundary';
-
-Vue.use(VueRouter);
 
 Vue.config.productionTip = false;
 
@@ -16,39 +15,53 @@ const targetModulesData = document.querySelectorAll(
   '.cms-vue-boilerplate > script[type="application/json"]',
 );
 
-const Home = {
-  template: `<div>Home</div>`,
-};
+// const Home = {
+//   template: `<div>Home</div>`,
+// };
 
-// Define some routes
-const routes = [
-  {
-    name: 'home',
-    path: '/',
-    component: Home,
-  },
-  // {
-  //   name: 'category',
-  //   path: '/:id',
-  //   component: Category
-  // },
-  {
-    name: 'integration',
-    path: '/:id',
-    component: Integration,
-  },
-];
-
-// Create the router instance and pass the `routes` option
-const router = new VueRouter({
-  base: window.base_href,
-  mode: 'history',
-  routes,
-});
+async function postData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
 
 targetModulesData.forEach(({ dataset, textContent }) => {
   return new Vue({
     router,
+    store,
+    methods: {
+      getDynamicRoutes(url) {
+        postData('https://www.mews.li/api/general/v1/integrationData/getAll', {
+          Client: 'MewsWebsite',
+        })
+          .then(data => {
+            var objArr = data.IntegrationData;
+            objArr.forEach(this.createAndAppendRoute);
+          })
+          .catch(err => console.log(err));
+      },
+
+      createAndAppendRoute: data => {
+        let path = data.Name.replace(/\W+/g, '-').toLowerCase();
+        let external = false;
+        data.Kind === 'External' ? (external = true) : false;
+        if (external === true) {
+          let newRoute = {
+            uuid: data.Id,
+            name: `${data.Name}`,
+            path: `/${path}`,
+            component: Integration,
+          };
+          router.addRoute(newRoute);
+        }
+      },
+    },
     render: h =>
       h(App, {
         props: {
@@ -61,6 +74,11 @@ targetModulesData.forEach(({ dataset, textContent }) => {
       portalId: dataset.portalId,
       moduleData: JSON.parse(textContent),
       moduleInstance: dataset.moduleInstance,
+    },
+    created() {
+      this.getDynamicRoutes(
+        'https://www.mews.li/api/general/v1/integrationData/getAll',
+      );
     },
   }).$mount(`#App--${dataset.moduleInstance}`);
 });
