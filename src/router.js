@@ -15,13 +15,14 @@ const routes = [
   },
   {
     name: 'category',
-    path: '/:id',
+    path: '/category/:slug',
     component: Category,
   },
   {
     name: 'integration',
-    path: '/:id',
+    path: '/integration/:slug',
     component: Integration,
+    props: true,
   },
 ];
 

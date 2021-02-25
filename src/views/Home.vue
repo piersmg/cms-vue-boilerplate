@@ -1,9 +1,14 @@
 <template>
-  <h1>Home</h1>
+  <div>
+    <IntegrationsList />
+  </div>
 </template>
 <script>
+import IntegrationsList from '@/components/IntegrationsList';
 export default {
   name: 'home',
-  components: {},
+  components: {
+    IntegrationsList,
+  },
 };
 </script>

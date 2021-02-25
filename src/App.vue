@@ -1,27 +1,27 @@
 <template>
-  <div>
-    <h1>Mews Marketplace</h1>
-    <p>
-      <router-link :to="{ name: 'integration', params: { id: 'foo' } }"
-        >Foo</router-link
-      >
-      <router-link :to="{ name: 'category', params: { id: 'accounting' } }"
-        >Accounting</router-link
-      >
-      <router-link :to="{ name: 'home' }">Home</router-link>
-    </p>
-    <router-view></router-view>
-  </div>
+  <section>
+    <div class="row small=row">
+      <p>
+        <router-link :to="{ name: 'category', params: { slug: 'accounting' } }"
+          >Accounting</router-link
+        >
+        <router-link :to="{ name: 'home' }">Home</router-link>
+      </p>
+      <transition :name="transitionName">
+        <router-view></router-view>
+      </transition>
+    </div>
+  </section>
 </template>
 
 <script>
+import router from '@/router';
 export default {
   name: 'App',
   props: ['moduleData'],
   data: function() {
     return {
-      // sprocketLogo,
-      // vueLogo,
+      transitionName: 'slide-left',
     };
   },
   created: function() {
@@ -30,6 +30,13 @@ export default {
       'all of your data typically accessed via the "module" keyword in HubL is available as JSON here!',
       this.moduleData,
     );
+  },
+  watch: {
+    $route(to, from) {
+      const toDepth = to.path.split('/').length;
+      const fromDepth = from.path.split('/').length;
+      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+    },
   },
   components: {},
 };
