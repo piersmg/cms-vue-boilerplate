@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <h3>Integrations:</h3>
-    <div class="integrations-wrapper flex-container justify-center">
+    <h2 class="h4">All integrations</h2>
+    <div class="integrations-wrapper flex-container">
       <div
         class="content-item"
         v-for="integration in integrations"
-        v-bind:key="integration.Id"
+        :key="integration.Id"
       >
         <a @click="goToIntegration(integration.Name, integration.Id)">
           <div class="img-wrapper mb-10">

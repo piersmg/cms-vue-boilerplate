@@ -17,6 +17,7 @@ const routes = [
     name: 'category',
     path: '/category/:slug',
     component: Category,
+    props: true,
   },
   {
     name: 'integration',
