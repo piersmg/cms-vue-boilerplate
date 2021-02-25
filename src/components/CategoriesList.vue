@@ -63,6 +63,7 @@ export default {
             catArr.push(cat);
           }
         }
+        catArr.sort();
         this.categories = catArr;
       })
       .catch(error => console.log(error));
