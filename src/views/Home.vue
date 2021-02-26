@@ -1,6 +1,6 @@
 <template>
   <section class="pt-0">
-    <div class="row justify-center">
+    <div class="flex-container justify-center">
       <div class="column small-12 medium-4 large-3" id="filter-slide">
         <CategoriesList />
       </div>

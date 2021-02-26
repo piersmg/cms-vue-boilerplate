@@ -1,12 +1,12 @@
 <template>
   <section>
-    <div class="row small=row">
+    <div class="row">
       <!-- <p>
         <router-link :to="{ name: 'category', params: { slug: 'accounting' } }"
           >Accounting</router-link
         >
         <router-link :to="{ name: 'home' }">Home</router-link>
-      </p> -->
+      </p>-->
       <transition :name="transitionName">
         <router-view></router-view>
       </transition>

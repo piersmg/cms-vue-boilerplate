@@ -46,32 +46,7 @@ targetModulesData.forEach(({ dataset, textContent }) => {
         },
       ],
     },
-    methods: {
-      // getDynamicRoutes(url) {
-      //   postData('https://www.mews.li/api/general/v1/integrationData/getAll', {
-      //     Client: 'MewsWebsite',
-      //   })
-      //     .then(data => {
-      //       var objArr = data.IntegrationData;
-      //       objArr.forEach(this.createAndAppendRoute);
-      //     })
-      //     .catch(err => console.log(err));
-      // },
-      // createAndAppendRoute: data => {
-      //   let path = data.Name.replace(/\W+/g, '-').toLowerCase();
-      //   let external = false;
-      //   data.Kind === 'External' ? (external = true) : false;
-      //   if (external === true) {
-      //     let newRoute = {
-      //       uuid: data.Id,
-      //       name: `${data.Name}`,
-      //       path: `/${path}`,
-      //       component: Integration,
-      //     };
-      //     router.addRoute(newRoute);
-      //   }
-      // },
-    },
+    methods: {},
     render: h =>
       h(App, {
         props: {

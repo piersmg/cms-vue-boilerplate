@@ -1,28 +1,37 @@
 <template>
-  <div>
-    <div v-if="loading" class="loading">
-      Loading...
+  <section class="pt-0" style="width: 100%;">
+    <div class="flex-container justify-center">
+      <div class="column small-12 medium-4 large-3" id="filter-slide">
+        <CategoriesList :cat="titleId" />
+      </div>
+      <div class="column small-12 medium-8 large-8 large-offset-1">
+        <!-- <div v-if="loading" class="loading">
+          Loading...
+        </div>
+        <div v-if="error" class="error">
+          {{ error }}
+        </div>-->
+        <div>
+          <h2 class="h4">{{ titleId | splitCapitals }}</h2>
+          <IntegrationsList :category="titleId" />
+        </div>
+      </div>
     </div>
-    <div v-if="error" class="error">
-      {{ error }}
-    </div>
-    <h2 class="h3">{{ id | splitCapitals }}</h2>
-    <div v-if="category" class="content"></div>
-  </div>
+  </section>
 </template>
 <script>
 import axios from 'axios';
 import router from '@/router';
+import IntegrationsList from '@/components/IntegrationsList';
+import CategoriesList from '@/components/CategoriesList';
 
 export default {
   name: 'category',
-  props: ['id'],
+  props: {
+    titleId: String,
+  },
   data() {
-    return {
-      loading: false,
-      category: null,
-      error: null,
-    };
+    return {};
   },
   filters: {
     splitCapitals: function(value) {
@@ -31,33 +40,9 @@ export default {
       return value.match(/[A-Z][a-z]+/g).join(' ');
     },
   },
-  created: function() {
-    this.loading = true;
-    try {
-      axios({
-        method: 'post',
-        url: 'https://www.mews.li/api/general/v1/integrationData/getAll',
-        data: {
-          Client: 'MewsWebsite',
-        },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).then(res => {
-        let integrations = res.data.IntegrationData;
-        for (i = 0, l = integrations.length; i < l; i++) {
-          let item = integrations[i];
-          if (item.Classification === this.id) {
-            // this.category = item;
-          }
-        }
-      });
-    } catch (err) {
-      this.error = err;
-    } finally {
-      this.loading = false;
-    }
+  components: {
+    IntegrationsList,
+    CategoriesList,
   },
-  components: {},
 };
 </script>

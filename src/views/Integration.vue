@@ -1,11 +1,9 @@
 <template>
   <div>
-    <div v-if="loading" class="loading">
-      Loading...
+    <div v-if="this.loading" class="loading">
+      <p>Loading...</p>
     </div>
-    <div v-if="error" class="error">
-      {{ error }}
-    </div>
+    <div v-if="error" class="error">{{ error }}</div>
     <div v-if="integration" class="content">
       <h2 class="h3">{{ integration.Name }}</h2>
       <p>{{ integration.Description }}</p>
@@ -19,7 +17,9 @@ import router from '@/router';
 
 export default {
   name: 'integration',
-  props: ['id'],
+  props: {
+    id: String,
+  },
   components: {},
   data() {
     return {
