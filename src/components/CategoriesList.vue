@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2 class="h4">Categories</h2>
-    <div class="categories-wrapper flex-container flex-dir-column" :load="log(cat)">
+    <div class="categories-wrapper flex-container flex-dir-column">
       <ul class="marketplace-categories">
         <a>
           <li @click="goToHome()" :class="{ 'cat-active' : cat === undefined }">All integrations</li>

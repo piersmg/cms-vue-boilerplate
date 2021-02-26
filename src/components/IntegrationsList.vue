@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 v-if="!category" class="h4" :load="log(this.currentCategory)">All integrations</h2>
+    <h2 v-if="!category" class="h4">All integrations</h2>
     <div v-if="loading" class="loading" :load="log(this.loading)">
       <p>Loading...</p>
     </div>
@@ -103,7 +103,7 @@ export default {
   },
   created: function() {
     // console.log('IntegrationsList category: ' + this.category);
-    this.getIntegrations();
+    this.getIntegrations(this.category);
   },
 };
 </script>
