@@ -1,8 +1,5 @@
-# cms-vue-boilerplate [beta]
-Boilerplate [Vue](https://vuejs.org/) project for creating apps using modules on the HubSpot CMS
-
-- Uses Vue version 2(currently 2.6)
-- Supports Vue SFC([Single File Components](https://vuejs.org/v2/guide/single-file-components.html))
+# Mews Marketplace Vue
+Creating the Marketplace on the Mews website using Vue in Hubspot
 
 ## Getting Started
 
