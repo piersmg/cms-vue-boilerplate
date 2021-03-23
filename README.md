@@ -16,10 +16,6 @@ For more information on local development tools, see [Local Development Tooling:
 
 ### Running
 - Run `npm start` or `yarn start` to automatically upload your project to `defaultPortal`.
-- Create a page from default theme, or any drag-and-drop (`dnd_area`) enabled template in your portal, and add the module(see snippet below).
-  ```
-  {% module "cms_vue_boilerplate" path="./cms-vue-boilerplate/modules/app" label="CMS Vue Boilerplate" %}
-  ```
 
 ### package.json scripts
 - `start` : Builds project with webpack, uploads to your `defaultPortal` specified in `hubspot.config.yml` and watches for changes via [`@hubspot/webpack-cms-plugins/HubSpotAutoUploadPlugin`](https://www.npmjs.com/package/@hubspot/webpack-cms-plugins).
